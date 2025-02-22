@@ -17,6 +17,7 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use App\Enums\RolesEnum;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -50,6 +51,11 @@ class AdminPanelProvider extends PanelProvider
                 SubstituteBindings::class,
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
+                'auth',
+                sprintf('role:%s|%s',
+                    RolesEnum::Admin->value,
+                    RolesEnum::Vendor->value,
+                )
             ])
             ->authMiddleware([
                 Authenticate::class,
